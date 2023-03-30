@@ -48,12 +48,35 @@ import React from 'react'
 
 // shortening the props
 const Book = (props) => {
-  const { img, title, author } = props
+  const { img, title, author, getBook, id, number } = props
+  // const getSingleBook = () => {
+  //   getBook(id)
+  // }
   return (
     <article className="book">
+      <span className="number">{`#${number + 1}`}</span>
       <img src={img} alt={title} />
       <h2>{title}</h2>
       <h4>{author.toUpperCase()}</h4>
+      {/* below line gets invoked without clicking when application loads
+       as it is inside paranthesis and we are not giving the reference to 
+       the function but actually invoking it since we use {getBook(id)}
+       instead of {getBook} so choices 
+       1. add a wrapper by creating another function and invoke
+       getBook(id) from that wrapper function which is equivalent to
+       2. passing reference like this - 
+       onClick{() => {getBook(id)}} */}
+      {/* <button onClick={getBook(id)}>click me</button> */}
+      {/* solution 1 - */}
+      {/* <button onClick={getSingleBook}>click me</button> */}
+      {/* solution 2 - */}
+      <button
+        onClick={() => {
+          getBook(id)
+        }}
+      >
+        click me
+      </button>
     </article>
   )
 }
@@ -80,7 +103,6 @@ const Book = (props) => {
 //   )
 // }
 
-
 // after passing whole object as prop
 // const Book = ({book: { img, title, author }}) => {
 //   return (
@@ -92,7 +114,7 @@ const Book = (props) => {
 //   )
 // }
 
-// or 
+// or
 // const Book = (props) => {
 //     const {img, title, author} = props.book
 //   return (
@@ -144,4 +166,5 @@ const Book = (props) => {
 //   return <h4>James Clear</h4>
 // }
 
+// one default export per file
 export default Book
